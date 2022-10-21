@@ -15,7 +15,7 @@ def results():
 	action = req.get('queryResult').get('action')
 
 	# return a fulfillment response
-	return {'fulfillmentText': 'This is a response from webhook.'}
+	return {'fulfillmentText': 'This is a response from webhook ROHIT.'}
 
 
 @app.route('/webhook', methods=['GET','POST'])
@@ -29,12 +29,11 @@ def testwebhook():
     cursor = cnxn.cursor()
     data = pd.read_sql("select Question from DialogFlowSampleQNA", cnxn)
     first = data.iloc[0, 0]
-    string1 = 'This is from the replit webhook {}'.format(first)
-    # return make_response(jsonify(results()))
-    return {
-            "fulfillmentText": ''This is from the replit webhook ROHIT',
-            "source": 'webhook'
-        }
+    return make_response(jsonify(results()))
+    # return {
+    #         "fulfillmentText": 'This is from the replit webhook {}'.format(first),
+    #         "source": 'webhook'
+    #     }
 
 
 if __name__ == "__main__":
