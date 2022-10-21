@@ -1,7 +1,10 @@
-from flask import Flask, request, render_template,url_for,redirect,jsonify
+from flask import Flask, request, render_template,url_for,redirect,jsonify,make_response
 import json
 import pandas as pd
 import pyodbc
+
+
+
 
 app = Flask(__name__)
 
@@ -9,23 +12,34 @@ app = Flask(__name__)
 def index():
     return "<h1>Hello World!</h1>"
 
-@app.route('/webhook', methods=['POST'])
+def results():
+	# build a request object
+	req = request.get_json(force=True)
+
+	# fetch action from json
+	action = req.get('queryResult').get('action')
+
+	# return a fulfillment response
+	return {'fulfillmentText': 'This is a response from webhook.'}
+
+
+@app.route('/webhook', methods=['GET','POST'])
 def testwebhook():
-    server = 'sql-4see.database.windows.net'
-    database = 'dev-4see'
-    username = 'db_admin'
-    password = 'Innovation!2022'
-    cnxn = pyodbc.connect(
-        'DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
-    cursor = cnxn.cursor()
-    data = pd.read_sql("select Question from DialogFlowSampleQNA", cnxn)
-    first = data.iloc[0, 0]
-    data1 = 3
-    st = 'This is from the replit webhook{}'.format(data1)
-    return {
-            "fulfillmentText": st,
-            "source": 'webhook'
-        }
+    return make_response(jsonify(results()))
+#     server = 'sql-4see.database.windows.net'
+#     database = 'dev-4see'
+#     username = 'db_admin'
+#     password = 'Innovation!2022'
+#     cnxn = pyodbc.connect(
+#         'DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
+#     cursor = cnxn.cursor()
+#     data = pd.read_sql("select Question from DialogFlowSampleQNA", cnxn)
+#     first = data.iloc[0, 0]
+    
+    # return {
+    #         "fulfillmentText": 'This is from the replit webhook {}'.format(first),
+    #         "source": 'webhook'
+    #     }
 
 
 if __name__ == "__main__":
