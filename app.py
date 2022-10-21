@@ -22,7 +22,7 @@ def testwebhook():
     first = data.iloc[0, 0]
 
     return {
-            "fulfillmentText": 'This is from the replit webhook {}'.format(first),
+            "fulfillmentText": 'This is from the replit webhook',
             "source": 'webhook'
         }
 
