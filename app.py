@@ -11,18 +11,19 @@ def index():
 
 @app.route('/webhook', methods=['POST'])
 def testwebhook():
-#     server = 'sql-4see.database.windows.net'
-#     database = 'dev-4see'
-#     username = 'db_admin'
-#     password = 'Innovation!2022'
-#     cnxn = pyodbc.connect(
-#         'DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
-#     cursor = cnxn.cursor()
-#     data = pd.read_sql("select Question from DialogFlowSampleQNA", cnxn)
-#     first = data.iloc[0, 0]
-
+    server = 'sql-4see.database.windows.net'
+    database = 'dev-4see'
+    username = 'db_admin'
+    password = 'Innovation!2022'
+    cnxn = pyodbc.connect(
+        'DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
+    cursor = cnxn.cursor()
+    data = pd.read_sql("select Question from DialogFlowSampleQNA", cnxn)
+    first = data.iloc[0, 0]
+    data1 = 3
+    st = 'This is from the replit webhook{}'.format(data1)
     return {
-            "fulfillmentText": 'This is from the replit webhook',
+            "fulfillmentText": st,
             "source": 'webhook'
         }
 
