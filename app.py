@@ -33,7 +33,6 @@ def testwebhook():
 
     req = request.get_json(force=True)
     queryResult = req.get('queryResult')
-    queryResult = req.get('responseId')
     action = queryResult.get('action')
     queryText = queryResult.get('queryText')
     session = req.get('session')
