@@ -32,13 +32,13 @@ def testwebhook():
     # return make_response(jsonify(results()))
 
     req = request.get_json(force=True)
-#     queryResult = req.get('queryResult')
+    queryResult = req.get('queryResult')
 #     action = queryResult.get('action')
 #     queryText = queryResult.get('queryText')
     session = req.get('session')
 
     return {
-            "fulfillmentText": str(session) ,
+            "fulfillmentText": str(queryResult) ,
             "source": 'webhook'
         }
 
