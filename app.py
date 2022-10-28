@@ -30,11 +30,15 @@ def testwebhook():
     # data = pd.read_sql("select Question from DialogFlowSampleQNA", cnxn)
     # first = data.iloc[0, 0]
     # return make_response(jsonify(results()))
+
     req = request.get_json(force=True)
+    queryResult = req.get('queryResult')
+    action = queryResult.get('action')
+    queryText = queryResult.get('queryText')
     session = req.get('session')
 
     return {
-            "fulfillmentText": str(req) ,
+            "fulfillmentText": str(queryResult,action,queryText,session) ,
             "source": 'webhook'
         }
 
