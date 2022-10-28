@@ -38,7 +38,7 @@ def testwebhook():
     session = req.get('session')
 
     return {
-            "fulfillmentText": str(queryResult) ,
+            "fulfillmentText": str(req) ,
             "source": 'webhook'
         }
 
