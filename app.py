@@ -33,11 +33,17 @@ def testwebhook():
 
     req = request.get_json(force=True)
     queryResult = req.get('queryResult')
+    action = queryResult.get('action')
     queryText = queryResult.get('queryText')
     session = req.get('session')
-
-    return {
-            "fulfillmentText": str(str(queryText)+'-----'+str(session)),
+    if queryText == 'add 4 and 5':
+        return {
+            "fulfillmentText": str('Inside If condition', action, queryText, session),
+            "source": 'webhook'
+        }
+    else:
+        return {
+            "fulfillmentText": str(queryResult,action,queryText,session) ,
             "source": 'webhook'
         }
 
