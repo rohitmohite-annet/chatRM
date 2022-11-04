@@ -6,17 +6,6 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return "<h1>Hello World!</h1>"
-#
-# def results():
-# 	# build a request object
-# 	req = request.get_json(force=True)
-#
-# 	# fetch action from json
-# 	action = req.get('queryResult').get('action')
-#
-# 	# return a fulfillment response
-# 	return {'fulfillmentText': 'This is a response from webhook ROHIT.'}
-
 
 @app.route('/webhook', methods=['GET','POST'])
 def testwebhook():
@@ -29,16 +18,12 @@ def testwebhook():
     # cursor = cnxn.cursor()
     # data = pd.read_sql("select Question from DialogFlowSampleQNA", cnxn)
     # first = data.iloc[0, 0]
-    # return make_response(jsonify(results()))
 
     req = request.get_json(force=True)
-    queryResult = req.get('queryResult')
-    action = queryResult.get('action')
-    queryText = queryResult.get('queryText')
     session = req.get('session')
 
     return {
-            "fulfillmentText": str(queryResult,action,queryText,session),
+            "fulfillmentText": str(req),
             "source": 'webhook'
         }
 
